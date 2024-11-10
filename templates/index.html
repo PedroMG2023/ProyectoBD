@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panadería Morales - Iniciar Sesión</title>
+    <link rel="stylesheet" href="../static/css/index.css">
 </head>
 <body>
-
+    <div class="login-container">
+        <h1>Bienvenido a Panadería Morales</h1>
+        <form action="/" method="POST">
+            <input type="text" name="usuario" placeholder="Nombre de usuario" required>
+            <input type="password" name="contrasena" placeholder="Contraseña" required>
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="error-message">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+    <script src="../static/js/index.js"></script>
 </body>
 </html>
