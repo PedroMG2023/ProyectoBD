@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Facturas - Panadería Morales</title>
+    <link rel="stylesheet" href="../../static/css/index.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Historial de Facturas</h1>
+        
+        {% for factura in invoices %}
+        <div class="factura-card">
+            <h2>Factura Número: {{ factura.numero }}</h2>
+            <table>
+                <tr>
+                    <th>ID Proveedor</th>
+                    <td>{{ factura.proveedor }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha</th>
+                    <td>{{ factura.fecha }}</td>
+                </tr>
+                <tr>
+                    <th>Precio Unitario</th>
+                    <td>${{ factura.precio_unitario }}</td>
+                </tr>
+                <tr>
+                    <th>Precio Total</th>
+                    <td>${{ factura.precio_total }}</td>
+                </tr>
+            </table>
+            <h3>Insumos Comprados:</h3>
+            <ul>
+                {% for insumo in factura.insumos %}
+                <li><strong>{{ insumo.nombre }}</strong> - Cantidad: {{ insumo.cantidad }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

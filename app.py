@@ -91,5 +91,69 @@ def trabajador():
         return render_template('Trabajador/trabajador.html')
     return redirect(url_for('login'))
 
+@app.route('/trabajadores')
+def trabajadores():
+    return render_template('Jefe/trabajadores.html')
+
+@app.route('/inventario')
+def inventario():
+    return render_template('Jefe/inventario.html')
+
+@app.route('/factura')
+def factura():
+    with pyodbc.connect(connection_string) as conn:
+        cursor = conn.cursor()
+        
+        # Retrieve all invoices ordered by date (most recent first), including the provider name
+        cursor.execute("""
+            SELECT 
+                f.Numero_FacturaCompra, 
+                f.ID_Proveedor, 
+                p.Nombre_Proveedor,  -- Nombre del proveedor
+                f.Fecha_FacturaCompra, 
+                f.Precio_Unitario, 
+                f.Precio_Total,
+                i.Nombre_MateriaPrima, 
+                fi.Cantidad_Comprada
+            FROM Factura_Compra f
+            LEFT JOIN FacturaCompraInsumo fi ON f.Numero_FacturaCompra = fi.Numero_FacturaCompra
+            LEFT JOIN Insumo i ON fi.ID_Insumo = i.ID_Insumo
+            LEFT JOIN Proveedor p ON f.ID_Proveedor = p.ID_Proveedor  -- Relación con Proveedor
+            ORDER BY f.Fecha_FacturaCompra DESC, f.Numero_FacturaCompra DESC
+        """)
+        
+        # Organize data by invoices with their insumo items
+        invoices = []
+        current_invoice = None
+
+        for row in cursor:
+            invoice_num = row.Numero_FacturaCompra
+            if current_invoice is None or current_invoice['numero'] != invoice_num:
+                # Add the previous invoice to the list and start a new one
+                if current_invoice:
+                    invoices.append(current_invoice)
+                current_invoice = {
+                    "numero": invoice_num,
+                    "proveedor_id": row.ID_Proveedor,  # Keep the provider's ID
+                    "proveedor": row.Nombre_Proveedor,  # Use the provider's name
+                    "fecha": row.Fecha_FacturaCompra,
+                    "precio_unitario": row.Precio_Unitario,
+                    "precio_total": row.Precio_Total,
+                    "insumos": []
+                }
+            
+            # Append insumo details to the current invoice's list of items
+            if row.Nombre_MateriaPrima:
+                current_invoice["insumos"].append({
+                    "nombre": row.Nombre_MateriaPrima,
+                    "cantidad": row.Cantidad_Comprada
+                })
+
+        # Add the last invoice if it exists
+        if current_invoice:
+            invoices.append(current_invoice)
+
+    return render_template('Jefe/factura.html', invoices=invoices)
+
 if __name__ == '__main__':
     app.run(debug=True)

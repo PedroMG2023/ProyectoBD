@@ -129,3 +129,66 @@ form button:hover {
 .card a {
     text-decoration: none;
 }
+
+/* Estilo general para la tabla de facturas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Estilo de las celdas de la tabla */
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Estilo para los encabezados de la tabla */
+th {
+    background-color: #8d5a44;
+    color: white;
+    font-weight: bold;
+}
+
+/* Estilo para las filas de la tabla */
+tr:nth-child(even) {
+    background-color: #f8efe6; /* Fondo ligeramente diferente para las filas pares */
+}
+
+/* Estilo para las filas al pasar el mouse */
+tr:hover {
+    background-color: #d1c4b2;
+}
+
+/* Contenedor de la tabla */
+.factura-card {
+    margin-top: 20px;
+}
+
+/* Estilo del título de cada factura */
+.factura-card h2 {
+    color: #8d5a44;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+/* Estilo de los insumos dentro de cada factura */
+.factura-card ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 10px;
+}
+
+.factura-card ul li {
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.factura-card ul li strong {
+    color: #8d5a44;
+}

@@ -18,7 +18,7 @@
                 <li><strong>Nombre:</strong> {{ trabajador.nombre }}</li>
                 <li><strong>Salario:</strong> ${{ trabajador.salario }}</li>
             </ul>
-            <a href="trabajadores.html"><button>Ver Trabajadores</button></a>
+            <a href="{{ url_for('trabajadores') }}"><button>Ver Trabajadores</button></a>
         </div>
 
         <!-- Inventario -->
@@ -34,7 +34,7 @@
                 <li><strong>Descripción:</strong> {{ producto.descripcion }}</li>
                 <li><strong>Fecha de Entrada:</strong> {{ producto.fecha_entrada }}</li>
             </ul>
-            <a href="inventario.html"><button>Ver Inventario</button></a>
+            <a href="{{ url_for('inventario') }}"><button>Ver Inventario</button></a>
         </div>
 
         <!-- Facturas -->
@@ -45,7 +45,7 @@
                 <li><strong>Monto Gastado:</strong> ${{ factura.gasto }}</li>
                 <li><strong>Fecha:</strong> {{ factura.fecha }}</li>
             </ul>
-            <a href="factura.html"><button>Ver Facturas</button></a>
+            <a href="{{ url_for('factura') }}"><button>Ver Facturas</button></a>
         </div>
     </div>
 </body>
