@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import pyodbc
+import uuid
+
 
 app = Flask(__name__)
 app.secret_key = 'tu_clave_secreta'
@@ -91,9 +93,60 @@ def trabajador():
         return render_template('Trabajador/trabajador.html')
     return redirect(url_for('login'))
 
-@app.route('/trabajadores')
+# Ruta de trabajadores para agregar un nuevo trabajador
+@app.route('/trabajadores', methods=['GET', 'POST'])
 def trabajadores():
-    return render_template('Jefe/trabajadores.html')
+    if request.method == 'POST':
+        # Si el método es POST, agregamos un nuevo trabajador
+        nombre = request.form['nombre']
+        salario = request.form['salario']
+        contrasena = request.form['contrasena']
+
+        try:
+            with pyodbc.connect(connection_string) as conn:
+                cursor = conn.cursor()
+
+                # Obtener el ID más alto actual y sumarle 1
+                cursor.execute("SELECT COALESCE(MAX(ID_Trabajador), 0) + 1 AS next_id FROM Trabajador")
+                next_id = cursor.fetchone().next_id  # Esto obtiene el próximo ID disponible
+
+                # Inserta el nuevo trabajador en la base de datos, usando el nuevo ID generado
+                cursor.execute("""
+                    INSERT INTO Trabajador (ID_Trabajador, Nombre_Trabajador, Salario, Contraseña)
+                    VALUES (?, ?, ?, ?)
+                """, (next_id, nombre, salario, contrasena))
+                conn.commit()  # Guardar cambios en la base de datos
+                flash('Trabajador agregado correctamente', 'success')
+        except Exception as e:
+            flash(f'Error al agregar trabajador: {str(e)}', 'danger')
+
+        return redirect(url_for('trabajadores'))
+
+    # Si el método es GET, mostramos la lista de trabajadores
+    with pyodbc.connect(connection_string) as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT ID_Trabajador, Nombre_Trabajador, Salario, Contraseña FROM Trabajador")
+        trabajadores = cursor.fetchall()
+
+    return render_template('Jefe/trabajadores.html', trabajadores=trabajadores)
+
+@app.route('/eliminarEmpleado/<int:valor>', methods=['GET', 'POST'])
+def eliminarEmpleado(valor):
+    try:
+        with pyodbc.connect(connection_string) as conn:
+            cursor = conn.cursor()
+
+            # Ejecutar la consulta DELETE para borrar al trabajador con el ID especificado
+            cursor.execute("DELETE FROM Trabajador WHERE ID_Trabajador = ?", (valor,))
+            conn.commit()  # Guardar los cambios en la base de datos
+
+            flash(f'Trabajador con ID {valor} eliminado correctamente.', 'success')
+    except Exception as e:
+        flash(f'Error al eliminar trabajador: {str(e)}', 'danger')
+
+    return redirect(url_for('trabajadores'))
+
+
 
 @app.route('/inventario')
 def inventario():

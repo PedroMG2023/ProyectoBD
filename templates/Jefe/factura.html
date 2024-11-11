@@ -12,10 +12,14 @@
         
         {% for factura in invoices %}
         <div class="factura-card">
-            <h2>Factura Número: {{ factura.numero }}</h2>
+            <h2>Factura Número: {{ factura.numero }}</h2> <!-- Este es el número de la factura -->
             <table>
                 <tr>
                     <th>ID Proveedor</th>
+                    <td>{{ factura.proveedor_id }}</td>
+                </tr>
+                <tr>
+                    <th>Nombre Proveedor</th>
                     <td>{{ factura.proveedor }}</td>
                 </tr>
                 <tr>
@@ -39,6 +43,11 @@
             </ul>
         </div>
         {% endfor %}
+        
+        <!-- Botón de regreso -->
+        <div class="button-container">
+            <button onclick="window.history.back()" class="regresar-btn">Regresar</button>
+        </div>
     </div>
 </body>
 </html>

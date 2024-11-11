@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabajadores - Panadería Morales</title>
+    <link rel="stylesheet" href="../../static/css/trabajadores.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Listado de Trabajadores</h1>
+
+        <!-- Mostrar mensaje de éxito o error -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Tabla de los trabajadores -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Salario</th>
+                    <th>Contraseña</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if trabajadores %}
+                    {% for trabajador in trabajadores %}
+                    <tr>
+                        <td>{{ trabajador.ID_Trabajador }}</td>
+                        <td>{{ trabajador.Nombre_Trabajador }}</td>
+                        <td>{{ trabajador.Salario }}</td>
+                        <td>{{ trabajador.Contraseña }}</td>
+                        <td>
+                            <a href="{{ url_for('eliminarEmpleado', valor=trabajador.ID_Trabajador) }}">
+                                <button>Eliminar</button>
+                            </a>
+                        </td>
+                        
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4">No hay trabajadores registrados.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+
+        <!-- Formulario para agregar trabajador -->
+        <h2>Agregar Nuevo Trabajador</h2>
+        <form method="POST" action="/trabajadores">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="salario">Salario:</label>
+            <input type="number" id="salario" name="salario" required>
+
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" id="contrasena" name="contrasena" required>
+
+            <button type="submit">Agregar Trabajador</button>
+        </form>
+
+        <!-- Botón de regreso -->
+        <form action="{{ url_for('jefe') }}" method="get">
+            <button type="submit" class="btn btn-primary">Regresar</button>
+        </form>
+    </div>
+
+    <script src="../../static/js/trabajadores.js"></script>
+</body>
+</html>

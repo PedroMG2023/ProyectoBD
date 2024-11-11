@@ -6,14 +6,23 @@
     font-family: Arial, sans-serif;
 }
 
-/* Estilo para el fondo y alineación de la página */
+/* Asegura que el body pueda acomodar el contenido */
 body {
-    background-color: #f8efe6; /* Color cálido de fondo */
+    background-color: #f8efe6;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    justify-content: center;  /* Centra el contenido horizontalmente */
+    align-items: center;  /* Centra el contenido verticalmente */
+    min-height: 100vh;  /* Asegura que el body cubra toda la pantalla */
     padding: 20px;
+    flex-direction: column; /* Los elementos se apilan verticalmente */
+    text-align: center; /* Centra el texto en todo el cuerpo */
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 1000px; /* Máximo ancho de la página */
+    width: 100%; /* Ocupa todo el ancho disponible */
+    margin: 0 auto; /* Centrado automático en pantalla */
 }
 
 /* Contenedor del login */
@@ -23,6 +32,8 @@ body {
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+    width: 100%;  /* Para asegurarnos de que ocupa todo el espacio disponible */
+    max-width: 400px;  /* Limitar el ancho máximo del contenedor */
 }
 
 /* Estilo del título principal */
@@ -50,6 +61,29 @@ form button {
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
+}
+
+/* Contenedor del botón */
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Estilo del botón de regreso */
+.regresar-btn {
+    background-color: #8d5a44; /* Color cálido de fondo */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Hover del botón de regreso */
+.regresar-btn:hover {
+    background-color: #a06b5d; /* Color más oscuro al pasar el cursor */
 }
 
 /* Hover del botón del formulario */
@@ -191,4 +225,118 @@ tr:hover {
 
 .factura-card ul li strong {
     color: #8d5a44;
+}
+/* Estilo general para la lista de trabajadores */
+.trabajadores-list {
+    margin-top: 20px;
+}
+
+.trabajador-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    text-align: left;
+}
+
+.trabajador-card h2 {
+    color: #8d5a44;
+    margin-bottom: 10px;
+}
+
+/* Estilo de la tabla dentro de las tarjetas de trabajadores */
+.trabajador-card table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.trabajador-card th, .trabajador-card td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+/* Estilo de los botones en las tarjetas */
+.trabajador-card .button-container {
+    margin-top: 10px;
+}
+
+.trabajador-card button {
+    background-color: #8d5a44;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.trabajador-card button:hover {
+    background-color: #a06b5d;
+}
+
+/* Estilo del modal */
+#trabajadorModal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);  /* Fondo oscuro */
+    padding-top: 60px;
+    text-align: left;
+}
+
+#trabajadorModal .modal-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 50%;  /* Ancho del modal */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#trabajadorModal .close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+#trabajadorModal .close:hover,
+#trabajadorModal .close:focus {
+    color: black;
+}
+
+#trabajadorModal form input,
+#trabajadorModal form select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#trabajadorModal form button {
+    background-color: #8d5a44;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#trabajadorModal form button:hover {
+    background-color: #a06b5d;
 }
