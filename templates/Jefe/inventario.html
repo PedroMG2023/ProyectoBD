@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario - Panadería Morales</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/inventario.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Inventario de Panadería Morales</h1>
+        
+        <div class="inventory-columns">
+            <!-- Columna de Insumos -->
+            <div class="column">
+                <h2>Insumos</h2>
+                <ul>
+                    {% for insumo in insumos %}
+                        <li class="insumo-item">
+                            <strong>{{ insumo.Nombre_MateriaPrima }}</strong><br>
+                            Cantidad: {{ insumo.Cantidad_Insumo }}<br>
+                            Fecha de Entrada: {{ insumo.Fecha_Entrada }}<br>
+                            Fecha de Caducidad: {{ insumo.Fecha_Caducidad }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Columna de Productos -->
+            <div class="column">
+                <h2>Productos</h2>
+                <ul>
+                    {% for producto in productos %}
+                        <li class="producto-item">
+                            <strong>{{ producto.Nombre_Producto }}</strong><br>
+                            Descripción: {{ producto.Descripcion_Producto }}<br>
+                            Fecha de Entrada: {{ producto.Fecha_Entrada }}<br>
+                            Fecha de Caducidad: {{ producto.Fecha_Caducidad }}<br>
+                            <strong>Insumos Requeridos:</strong><br>
+                            {% if producto.Nombre_MateriaPrima %}
+                                - {{ producto.Nombre_MateriaPrima }} ({{ producto.Cantidad_Insumo }} unidades)<br>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Botón para regresar -->
+        <div class="back-button">
+            <form action="{{ url_for('jefe') }}" method="get">
+                <button type="submit" class="btn btn-primary">Regresar al Panel del Jefe</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

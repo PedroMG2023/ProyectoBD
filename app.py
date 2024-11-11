@@ -146,11 +146,32 @@ def eliminarEmpleado(valor):
 
     return redirect(url_for('trabajadores'))
 
-
-
 @app.route('/inventario')
 def inventario():
-    return render_template('Jefe/inventario.html')
+    insumos = []
+    productos = []
+    try:
+        with pyodbc.connect(connection_string) as conn:
+            cursor = conn.cursor()
+
+            # Obtener todos los insumos
+            cursor.execute("SELECT ID_Insumo, Nombre_MateriaPrima, Cantidad_Insumo, Fecha_Entrada, Fecha_Caducidad FROM Insumo")
+            insumos = cursor.fetchall()
+
+            # Obtener todos los productos finales y los insumos que requieren
+            cursor.execute("""
+                SELECT pf.ID_Producto, pf.Nombre_Producto, pf.Descripcion_Producto, pf.Fecha_Entrada, pf.Fecha_Caducidad, 
+                       i.Nombre_MateriaPrima, pi.Cantidad_Insumo
+                FROM Producto_Final pf
+                JOIN ProductoInsumo pi ON pf.ID_Producto = pi.ID_Producto
+                JOIN Insumo i ON pi.ID_Insumo = i.ID_Insumo
+            """)
+            productos = cursor.fetchall()
+
+    except Exception as e:
+        flash(f'Error al obtener datos de inventario: {str(e)}', 'danger')
+
+    return render_template('Jefe/inventario.html', insumos=insumos, productos=productos)
 
 @app.route('/factura')
 def factura():

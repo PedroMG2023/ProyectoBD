@@ -1,0 +1,75 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    color: #4e4e4e;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #c76e1f;
+    text-align: center;
+}
+
+.inventory-columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.column {
+    width: 45%;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.insumo-item, .producto-item {
+    background-color: #f9e0b5;
+    border: 1px solid #e2c37b;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.insumo-item strong, .producto-item strong {
+    color: #6a2a1e;
+    font-size: 18px;
+}
+
+.stock {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #ff7a00;
+}
+
+.back-button {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn {
+    background-color: #c76e1f;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #d98358;
+}
