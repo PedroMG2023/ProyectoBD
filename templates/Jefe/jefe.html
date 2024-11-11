@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel del Jefe - Panadería Morales</title>
+    <link rel="stylesheet" href="../../static/css/index.css">
+</head>
+<body>
+    <div class="jefe-container">
+        <h1>Panel del Jefe</h1>
+
+        <!-- Trabajadores -->
+        <div class="card">
+            <h3>Último Trabajador Contratado</h3>
+            <ul>
+                <li><strong>ID:</strong> {{ trabajador.id }}</li>
+                <li><strong>Nombre:</strong> {{ trabajador.nombre }}</li>
+                <li><strong>Salario:</strong> ${{ trabajador.salario }}</li>
+            </ul>
+            <a href="trabajadores.html"><button>Ver Trabajadores</button></a>
+        </div>
+
+        <!-- Inventario -->
+        <div class="card">
+            <h3>Insumo con Menor Cantidad</h3>
+            <ul>
+                <li><strong>Nombre:</strong> {{ insumo.nombre }}</li>
+                <li><strong>Cantidad:</strong> {{ insumo.cantidad }}</li>
+            </ul>
+            <h3>Producto Final con Menor Cantidad</h3>
+            <ul>
+                <li><strong>Nombre:</strong> {{ producto.nombre }}</li>
+                <li><strong>Descripción:</strong> {{ producto.descripcion }}</li>
+                <li><strong>Fecha de Entrada:</strong> {{ producto.fecha_entrada }}</li>
+            </ul>
+            <a href="inventario.html"><button>Ver Inventario</button></a>
+        </div>
+
+        <!-- Facturas -->
+        <div class="card">
+            <h3>Última Factura Gestionada</h3>
+            <ul>
+                <li><strong>Número de Factura:</strong> {{ factura.numero }}</li>
+                <li><strong>Monto Gastado:</strong> ${{ factura.gasto }}</li>
+                <li><strong>Fecha:</strong> {{ factura.fecha }}</li>
+            </ul>
+            <a href="factura.html"><button>Ver Facturas</button></a>
+        </div>
+    </div>
+</body>
+</html>
